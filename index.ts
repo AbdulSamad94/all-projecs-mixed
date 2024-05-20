@@ -18,7 +18,7 @@ while (mainCondition) {
         name: "select",
         type: "list",
         message: message1,
-        choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System"]
+        choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System","10)   Adventure Game"]
     }])
 
     let select = selectOption.select
@@ -715,7 +715,7 @@ while (mainCondition) {
             console.log(chalk.red.bold("Not a problem!!"))
         }
     }
-    else if("9)   Student-Management-System"){
+    else if(select == "9)   Student-Management-System"){
         mainCondition = false
         console.log(chalk.yellowBright("\n--------------------------Welcome to the Student-Management project by Abdul Samad------------------------\n"))
 
@@ -784,11 +784,11 @@ while (mainCondition) {
                 }])
                 if(exitMode.exit == "View Final Status" ){
                     console.log(chalk.white.bold(`\n ---------------AdmitCard---------------\n`))
-                    console.log(chalk.green.bold(`Student Name : ${nameasking.name}`))
-                    console.log(chalk.green.bold(`Student's Id : ${randomId}`))
-                    console.log(chalk.green.bold(`Selected Course : ${selectCourse}`))
-                    console.log(chalk.green.bold(`Course Fees : ${coursefees[selectCourse]}`))
-                    console.log(chalk.green.bold(`Course Fees Paid? : Paid `))
+                    console.log(chalk.green.bold(`\tStudent Name : ${nameasking.name}\t`))
+                    console.log(chalk.green.bold(`\tStudent's Id : ${randomId}\t`))
+                    console.log(chalk.green.bold(`\tSelected Course : ${selectCourse}\t`))
+                    console.log(chalk.green.bold(`\tCourse Fees : ${coursefees[selectCourse]}\t`))
+                    console.log(chalk.green.bold(`\tCourse Fees Paid? : Paid \t`))
                 }
                 else{
                     console.log(chalk.blue(`\n--------------------Exiting------------------\n`))
@@ -802,6 +802,94 @@ while (mainCondition) {
             console.log(chalk.redBright.bold("\n Wrong PinCode!!\n"))
         }
 
+    }
+    else if(select == "10)   Adventure Game"){
+        mainCondition = false
+        let playerFuel = 100;
+let OpponentFuel = 100;
+
+function rand() {
+    return Math.floor(Math.random() * 2);
+}
+
+function playerAttack() {
+    if (rand() == 0) {
+        return 0;
+    } else {
+        return 25;
+    }
+}
+
+function opponentAttack() {
+    if (rand() == 0) {
+        return 0;
+    } else {
+        return 25;
+    }
+}
+
+async function game() {
+    let nameAsking = await inquirer.prompt([{
+        name: "name",
+        type: "input",
+        message: chalk.yellowBright.bold("Enter Your Name: ")
+    }]);
+    let playerName = nameAsking.name;
+
+    let selectEnemy = await inquirer.prompt([{
+        name: "enemy",
+        type: "list",
+        message: chalk.yellowBright.bold("Select Any One Of The Opponent..."),
+        choices: ["Zombie", "Skeleton", "Alien"]
+    }]);
+    let enemyName = selectEnemy.enemy;
+
+    console.log(chalk.blueBright.bold(`\n\t------${chalk.underline(playerName)} fuel is ${chalk.underline(playerFuel)} & ${chalk.underline(enemyName)} Fuel is ${chalk.underline(OpponentFuel)}------\t\n`));
+
+    while (playerFuel >= 0 && OpponentFuel >= 0) {
+        let selectAttack = await inquirer.prompt([{
+            name: "attacking",
+            type: "list",
+            message: chalk.yellowBright.bold("Select Any One Of The Attack..."),
+            choices: ["Attack", "Drink Lucky Potion", "Run For Life.."]
+        }]);
+        selectAttack = selectAttack.attacking;
+
+        if (selectAttack == "Attack") {
+            let playerDamage = playerAttack();
+            let opponentDamage = opponentAttack();
+
+            playerFuel -= opponentDamage;
+            OpponentFuel -= playerDamage;
+
+            console.log(chalk.greenBright.bold(`${playerName} attacks! ${enemyName} takes ${playerDamage} damage.`));
+            console.log(chalk.redBright.bold(`${enemyName} attacks! ${playerName} takes ${opponentDamage} damage.\n`));
+
+            console.log(chalk.greenBright.bold(`${playerName} Fuel is now ${playerFuel}`));
+            console.log(chalk.redBright.bold(`${enemyName} Fuel is now ${OpponentFuel}\n`));
+        } else if (selectAttack == "Drink Lucky Potion") {
+            playerFuel = 100;
+            console.log(chalk.greenBright.bold.underline(`\n${playerName} drinks a lucky potion! Fuel is now refilled to ${playerFuel}\n`));
+            let opponentDamage = opponentAttack();
+            playerFuel -= opponentDamage;
+            console.log(chalk.redBright.bold(`${enemyName} attacks! ${playerName} takes ${opponentDamage} damage.`));
+            console.log(chalk.greenBright.bold(`${playerName} Fuel is now ${playerFuel}\n`));
+        } else {
+            console.log(chalk.red.bold("\nYou Lost! Try Again..\n"));
+            return;
+        }
+
+        if (playerFuel <= 0) {
+            console.log(chalk.red.bold("\nYou Lost! Try Again..\n"));
+            return;
+        } else if (OpponentFuel <= 0) {
+            console.log(chalk.green.bold("\n\tCongratulations! You Won!\t\n"));
+            return;
+        }
+    }
+}
+
+game();
     }
     }
 
