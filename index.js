@@ -1,4 +1,4 @@
-#! /usr/bin/env node  
+#! /usr/bin/env node
 import chalk from "chalk";
 import inquirer from "inquirer";
 console.log(" ");
@@ -13,7 +13,7 @@ while (mainCondition) {
             name: "select",
             type: "list",
             message: message1,
-            choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)   Adventure Game"]
+            choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)  Adventure Game", "11)  Countdown Timer"]
         }]);
     let select = selectOption.select;
     if (select == "1)   CLI-Calculator") {
@@ -675,6 +675,9 @@ while (mainCondition) {
                     console.log(chalk.blue(`\n--------------------Exiting------------------\n`));
                 }
             }
+            else if (enterAmount.amount > coursefees[selectCourse]) {
+                -console.log(chalk.red.bold.underline("\nYou ARe Giving extra Money, please give me the exact amount of the course\n"));
+            }
             else {
                 console.log(chalk.red.bold.underline("\nPlease Enter The Valid Amount\n"));
             }
@@ -683,7 +686,7 @@ while (mainCondition) {
             console.log(chalk.redBright.bold("\n Wrong PinCode!!\n"));
         }
     }
-    else if (select == "10)   Adventure Game") {
+    else if (select == "10)  Adventure Game") {
         mainCondition = false;
         let playerFuel = 100;
         let OpponentFuel = 100;
@@ -762,5 +765,34 @@ while (mainCondition) {
             }
         }
         game();
+    }
+    else if (select == "11)  Countdown Timer") {
+        mainCondition = false;
+        async function main() {
+            let cQuestion = await inquirer.prompt([{
+                    name: "cQuestion",
+                    type: "number",
+                    message: chalk.bold.yellow("Enter Your number..."),
+                    validate: (input) => {
+                        if (isNaN(input) || input <= 0) {
+                            return chalk.bold.red("Please enter a valid positive number.");
+                        }
+                        return true;
+                    }
+                }]);
+            cQuestion = cQuestion.cQuestion;
+            function startCountDown(second) {
+                let interval = setInterval(() => {
+                    console.log(chalk.greenBright(`${second} seconds are remaining!`));
+                    second--;
+                    if (second <= 0) {
+                        clearInterval(interval);
+                        console.log(chalk.bold.red.underline("\nCountDown Finished!!"));
+                    }
+                }, 1000);
+            }
+            startCountDown(cQuestion);
+        }
+        main();
     }
 }

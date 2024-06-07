@@ -1,6 +1,7 @@
-#! /usr/bin/env node  
+#! /usr/bin/env node
 import chalk from "chalk"
 import inquirer from "inquirer";
+import {differenceInSeconds} from "date-fns"
 console.log(" ")
 
 let message = chalk.red.bold(`all project combined`)
@@ -18,7 +19,7 @@ while (mainCondition) {
         name: "select",
         type: "list",
         message: message1,
-        choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System","10)   Adventure Game"]
+        choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)  Adventure Game", "11)  Countdown Timer"]
     }])
 
     let select = selectOption.select
@@ -198,9 +199,9 @@ while (mainCondition) {
             }
         }
         else {
-    
+
             console.log(chalk.redBright.bold("Incorrect Pin Code"))
-    
+
         }
 
     }
@@ -715,74 +716,74 @@ while (mainCondition) {
             console.log(chalk.red.bold("Not a problem!!"))
         }
     }
-    else if(select == "9)   Student-Management-System"){
+    else if (select == "9)   Student-Management-System") {
         mainCondition = false
         console.log(chalk.yellowBright("\n--------------------------Welcome to the Student-Management project by Abdul Samad------------------------\n"))
 
-        let randomId = Math.floor(Math.random()*9999 + 1000)
-        
+        let randomId = Math.floor(Math.random() * 9999 + 1000)
+
         let nameasking = await inquirer.prompt([{
-            name : "name",
-            type : "input",
-            message : chalk.blueBright.bold.underline("Enter Your Name:")
+            name: "name",
+            type: "input",
+            message: chalk.blueBright.bold.underline("Enter Your Name:")
         }])
         let selectCourse = await inquirer.prompt([{
-            name : "course",
-            type : "list",
-            message : chalk.blueBright.bold.underline("Select Any One Of The Course : "),
-            choices : ["TypeScript", "JavaScript", "Python", "Java", "PHP"]
+            name: "course",
+            type: "list",
+            message: chalk.blueBright.bold.underline("Select Any One Of The Course : "),
+            choices: ["TypeScript", "JavaScript", "Python", "Java", "PHP"]
         }])
 
-        let coursefees : {[key : string] : number} = {
-            "TypeScript" : 4000,
-            "JavaScript" : 4200,
-            "Python" : 3500,
-            "Java" : 3000,
-            "PHP" : 3800,
+        let coursefees: { [key: string]: number } = {
+            "TypeScript": 4000,
+            "JavaScript": 4200,
+            "Python": 3500,
+            "Java": 3000,
+            "PHP": 3800,
         }
-        let pinCodes : {[key : string]: number} = {
-            EasyPaisa : 123,
-            JazzCash : 1234,
-            PayPal : 12345
+        let pinCodes: { [key: string]: number } = {
+            EasyPaisa: 123,
+            JazzCash: 1234,
+            PayPal: 12345
         }
         selectCourse = selectCourse.course
 
         console.log(chalk.redBright.bold(`\nYou Have Selected ${chalk.white.underline(selectCourse)}, And It's Fees is ${chalk.white.bold.underline(coursefees[selectCourse])}\n`))
 
         let selectBank = await inquirer.prompt([{
-            name : "bank",
-            type : "list",
-            message : chalk.yellowBright.bold("Select Any One Of The Bank To Proceed..."),
-            choices : ["EasyPaisa", "JazzCash", "PayPal"]
+            name: "bank",
+            type: "list",
+            message: chalk.yellowBright.bold("Select Any One Of The Bank To Proceed..."),
+            choices: ["EasyPaisa", "JazzCash", "PayPal"]
         }])
 
         selectBank = selectBank.bank
         let pinCheck = await inquirer.prompt([{
-            name : "pin",
-            type : "input",
-            message : chalk.redBright.bold.underline(`Enter The pinCode Of ${selectBank}`)
+            name: "pin",
+            type: "input",
+            message: chalk.redBright.bold.underline(`Enter The pinCode Of ${selectBank}`)
         }])
         pinCheck = pinCheck.pin
 
         let balace = 10000
 
-        if(pinCheck == pinCodes[selectBank]){
+        if (pinCheck == pinCodes[selectBank]) {
             console.log(chalk.greenBright.bold(`\nYour Balance in ${selectBank} is ${balace}..\n`))
 
             let enterAmount = await inquirer.prompt([{
-                name : "amount",
-                type : "number",
-                message : chalk.yellow.bold(`Enter The Amount Of the ${chalk.white.underline(selectCourse)} : `)
+                name: "amount",
+                type: "number",
+                message: chalk.yellow.bold(`Enter The Amount Of the ${chalk.white.underline(selectCourse)} : `)
             }])
-            if(enterAmount.amount == coursefees[selectCourse]){
+            if (enterAmount.amount == coursefees[selectCourse]) {
                 console.log(chalk.green.bold(`\nCongratulations! You Have brought ${chalk.blue.underline(selectCourse)} Course..\n`))
                 let exitMode = await inquirer.prompt([{
-                    name : "exit",
-                    type : "list",
-                    message : chalk.yellow.bold("Select Any One Of The Exit Mode :"),
-                    choices : ["View Final Status", "Exit"]
+                    name: "exit",
+                    type: "list",
+                    message: chalk.yellow.bold("Select Any One Of The Exit Mode :"),
+                    choices: ["View Final Status", "Exit"]
                 }])
-                if(exitMode.exit == "View Final Status" ){
+                if (exitMode.exit == "View Final Status") {
                     console.log(chalk.white.bold(`\n ---------------AdmitCard---------------\n`))
                     console.log(chalk.green.bold(`\tStudent Name : ${nameasking.name}\t`))
                     console.log(chalk.green.bold(`\tStudent's Id : ${randomId}\t`))
@@ -790,106 +791,145 @@ while (mainCondition) {
                     console.log(chalk.green.bold(`\tCourse Fees : ${coursefees[selectCourse]}\t`))
                     console.log(chalk.green.bold(`\tCourse Fees Paid? : Paid \t`))
                 }
-                else{
+                else {
                     console.log(chalk.blue(`\n--------------------Exiting------------------\n`))
                 }
             }
-            else{
+            else if (enterAmount.amount > coursefees[selectCourse]) {
+                -
+                console.log(chalk.red.bold.underline("\nYou ARe Giving extra Money, please give me the exact amount of the course\n"))
+
+            }
+            else {
                 console.log(chalk.red.bold.underline("\nPlease Enter The Valid Amount\n"))
             }
         }
-        else{
+        else {
             console.log(chalk.redBright.bold("\n Wrong PinCode!!\n"))
         }
 
     }
-    else if(select == "10)   Adventure Game"){
+    else if (select == "10)  Adventure Game") {
         mainCondition = false
         let playerFuel = 100;
-let OpponentFuel = 100;
+        let OpponentFuel = 100;
 
-function rand() {
-    return Math.floor(Math.random() * 2);
-}
-
-function playerAttack() {
-    if (rand() == 0) {
-        return 0;
-    } else {
-        return 25;
-    }
-}
-
-function opponentAttack() {
-    if (rand() == 0) {
-        return 0;
-    } else {
-        return 25;
-    }
-}
-
-async function game() {
-    let nameAsking = await inquirer.prompt([{
-        name: "name",
-        type: "input",
-        message: chalk.yellowBright.bold("Enter Your Name: ")
-    }]);
-    let playerName = nameAsking.name;
-
-    let selectEnemy = await inquirer.prompt([{
-        name: "enemy",
-        type: "list",
-        message: chalk.yellowBright.bold("Select Any One Of The Opponent..."),
-        choices: ["Zombie", "Skeleton", "Alien"]
-    }]);
-    let enemyName = selectEnemy.enemy;
-
-    console.log(chalk.blueBright.bold(`\n\t------${chalk.underline(playerName)} fuel is ${chalk.underline(playerFuel)} & ${chalk.underline(enemyName)} Fuel is ${chalk.underline(OpponentFuel)}------\t\n`));
-
-    while (playerFuel >= 0 && OpponentFuel >= 0) {
-        let selectAttack = await inquirer.prompt([{
-            name: "attacking",
-            type: "list",
-            message: chalk.yellowBright.bold("Select Any One Of The Attack..."),
-            choices: ["Attack", "Drink Lucky Potion", "Run For Life.."]
-        }]);
-        selectAttack = selectAttack.attacking;
-
-        if (selectAttack == "Attack") {
-            let playerDamage = playerAttack();
-            let opponentDamage = opponentAttack();
-
-            playerFuel -= opponentDamage;
-            OpponentFuel -= playerDamage;
-
-            console.log(chalk.greenBright.bold(`${playerName} attacks! ${enemyName} takes ${playerDamage} damage.`));
-            console.log(chalk.redBright.bold(`${enemyName} attacks! ${playerName} takes ${opponentDamage} damage.\n`));
-
-            console.log(chalk.greenBright.bold(`${playerName} Fuel is now ${playerFuel}`));
-            console.log(chalk.redBright.bold(`${enemyName} Fuel is now ${OpponentFuel}\n`));
-        } else if (selectAttack == "Drink Lucky Potion") {
-            playerFuel = 100;
-            console.log(chalk.greenBright.bold.underline(`\n${playerName} drinks a lucky potion! Fuel is now refilled to ${playerFuel}\n`));
-            let opponentDamage = opponentAttack();
-            playerFuel -= opponentDamage;
-            console.log(chalk.redBright.bold(`${enemyName} attacks! ${playerName} takes ${opponentDamage} damage.`));
-            console.log(chalk.greenBright.bold(`${playerName} Fuel is now ${playerFuel}\n`));
-        } else {
-            console.log(chalk.red.bold("\nYou Lost! Try Again..\n"));
-            return;
+        function rand() {
+            return Math.floor(Math.random() * 2);
         }
 
-        if (playerFuel <= 0) {
-            console.log(chalk.red.bold("\nYou Lost! Try Again..\n"));
-            return;
-        } else if (OpponentFuel <= 0) {
-            console.log(chalk.green.bold("\n\tCongratulations! You Won!\t\n"));
-            return;
+        function playerAttack() {
+            if (rand() == 0) {
+                return 0;
+            } else {
+                return 25;
+            }
         }
-    }
-}
 
-game();
+        function opponentAttack() {
+            if (rand() == 0) {
+                return 0;
+            } else {
+                return 25;
+            }
+        }
+
+        async function game() {
+            let nameAsking = await inquirer.prompt([{
+                name: "name",
+                type: "input",
+                message: chalk.yellowBright.bold("Enter Your Name: ")
+            }]);
+            let playerName = nameAsking.name;
+
+            let selectEnemy = await inquirer.prompt([{
+                name: "enemy",
+                type: "list",
+                message: chalk.yellowBright.bold("Select Any One Of The Opponent..."),
+                choices: ["Zombie", "Skeleton", "Alien"]
+            }]);
+            let enemyName = selectEnemy.enemy;
+
+            console.log(chalk.blueBright.bold(`\n\t------${chalk.underline(playerName)} fuel is ${chalk.underline(playerFuel)} & ${chalk.underline(enemyName)} Fuel is ${chalk.underline(OpponentFuel)}------\t\n`));
+
+            while (playerFuel >= 0 && OpponentFuel >= 0) {
+                let selectAttack = await inquirer.prompt([{
+                    name: "attacking",
+                    type: "list",
+                    message: chalk.yellowBright.bold("Select Any One Of The Attack..."),
+                    choices: ["Attack", "Drink Lucky Potion", "Run For Life.."]
+                }]);
+                selectAttack = selectAttack.attacking;
+
+                if (selectAttack == "Attack") {
+                    let playerDamage = playerAttack();
+                    let opponentDamage = opponentAttack();
+
+                    playerFuel -= opponentDamage;
+                    OpponentFuel -= playerDamage;
+
+                    console.log(chalk.greenBright.bold(`${playerName} attacks! ${enemyName} takes ${playerDamage} damage.`));
+                    console.log(chalk.redBright.bold(`${enemyName} attacks! ${playerName} takes ${opponentDamage} damage.\n`));
+
+                    console.log(chalk.greenBright.bold(`${playerName} Fuel is now ${playerFuel}`));
+                    console.log(chalk.redBright.bold(`${enemyName} Fuel is now ${OpponentFuel}\n`));
+                } else if (selectAttack == "Drink Lucky Potion") {
+                    playerFuel = 100;
+                    console.log(chalk.greenBright.bold.underline(`\n${playerName} drinks a lucky potion! Fuel is now refilled to ${playerFuel}\n`));
+                    let opponentDamage = opponentAttack();
+                    playerFuel -= opponentDamage;
+                    console.log(chalk.redBright.bold(`${enemyName} attacks! ${playerName} takes ${opponentDamage} damage.`));
+                    console.log(chalk.greenBright.bold(`${playerName} Fuel is now ${playerFuel}\n`));
+                } else {
+                    console.log(chalk.red.bold("\nYou Lost! Try Again..\n"));
+                    return;
+                }
+
+                if (playerFuel <= 0) {
+                    console.log(chalk.red.bold("\nYou Lost! Try Again..\n"));
+                    return;
+                } else if (OpponentFuel <= 0) {
+                    console.log(chalk.green.bold("\n\tCongratulations! You Won!\t\n"));
+                    return;
+                }
+            }
+        }
+
+        game();
     }
-    }
+    else if(select == "11)  Countdown Timer"){
+        mainCondition = false
+        
+        async function main() {
+            let cQuestion = await inquirer.prompt([{
+                name: "cQuestion",
+                type: "number",
+                message: chalk.bold.yellow("Enter Your number..."),
+                validate: (input : number) => {
+                    if (isNaN(input) || input <= 0) {
+                        return chalk.bold.red("Please enter a valid positive number.");
+                    }
+                    return true;
+                }
+            }]);
+        
+            cQuestion = cQuestion.cQuestion;
+        
+            function startCountDown(second : number) {
+                let interval = setInterval(() => {
+                    console.log(chalk.greenBright(`${second} seconds are remaining!`));
+                    second--;
+                    if (second <= 0) {
+                        clearInterval(interval);
+                        console.log(chalk.bold.red.underline("\nCountDown Finished!!"));
+                    }
+                }, 1000);
+            }
+        
+            startCountDown(cQuestion);
+        }
+        
+        main();
+    }        
+}
 

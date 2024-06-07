@@ -1,6 +1,6 @@
 {
   "name": "all-projects-mixed-program-by-abdul-samad",
-  "version": "1.2.1",
+  "version": "1.3.1",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -21,6 +21,7 @@
     "clone": "^1.0.4",
     "color-convert": "^2.0.1",
     "color-name": "^1.1.4",
+    "date-fns": "^3.6.0",
     "defaults": "^1.0.4",
     "define-data-property": "^1.1.4",
     "emoji-regex": "^8.0.0",
