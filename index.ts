@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 import chalk from "chalk"
 import inquirer from "inquirer";
-import {differenceInSeconds} from "date-fns"
+
 console.log(" ")
 
 let message = chalk.red.bold(`all project combined`)
@@ -13,21 +13,21 @@ console.log(chalk.yellowBright.bold.italic(`------------------------Welcome to t
 console.log(" ")
 
 let mainCondition = true
+
 while (mainCondition) {
 
     let selectOption = await inquirer.prompt([{
         name: "select",
         type: "list",
         message: message1,
-        choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)  Adventure Game", "11)  Countdown Timer"]
+        choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)  Adventure Game", "11)  Countdown Timer", "12)  OOP student management system"]
     }])
 
     let select = selectOption.select
 
     if (select == "1)   CLI-Calculator") {
-        console.log("")
-        console.log(chalk.blueBright.bold.underline("--------------------Welcome to the CLI- Calculator by abdul-samad--------------------"))
-        console.log("")
+
+        console.log(chalk.blueBright.bold.underline("\n--------------------Welcome to the CLI- Calculator by abdul-samad--------------------\n"))
 
         let firstNum = chalk.yellowBright.bold("Enter your first number")
         let secondNum = chalk.yellowBright.bold("Enter your second number")
@@ -39,14 +39,11 @@ while (mainCondition) {
             type: "number",
             message: firstNum
         }])
-
         let num2 = await inquirer.prompt([{
             name: "n2",
             type: "number",
             message: secondNum
-
         }])
-
         let operator = await inquirer.prompt([{
             name: "operation",
             type: "list",
@@ -56,13 +53,12 @@ while (mainCondition) {
 
         num1 = num1.n1
         num2 = num2.n2
+        operator = operator.operation
 
         let add = num1 + num2
         let sub = num1 - num2
         let multi = num1 * num2
         let divide = num1 / num2
-
-        operator = operator.operation
 
         if (operator == "Addition") {
             console.log(chalk.greenBright.bold(`${checkAnswer} ${add}`))
@@ -76,8 +72,6 @@ while (mainCondition) {
         else {
             console.log(chalk.greenBright.bold(`${checkAnswer} ${divide}`))
         }
-
-        console.log("")
 
         var ask = await inquirer.prompt([{
             name: "asking",
@@ -93,13 +87,9 @@ while (mainCondition) {
         else {
             mainCondition = false
         }
-
-
     }
     else if (select == "2)   Number Guessing Game") {
-
         console.log(chalk.blueBright.bold("----------------Welcome to the Number Guessing Game by Abdul Samad----------------"))
-        console.log("")
         let target = Math.floor(Math.random() * 5 + 1);
         console.log("")
         let message = await inquirer.prompt([{
@@ -112,7 +102,6 @@ while (mainCondition) {
         if (message.Num1 == target) {
             console.log(chalk.greenBright.bold.underline("Congratulations! You guessed the correct answer"))
         }
-
         else {
             console.log(chalk.redBright.bold("Wrong Answer!!!!"))
             console.log("")
@@ -131,6 +120,7 @@ while (mainCondition) {
             }
         }
     }
+
     else if (select == "3)   ATM-Machine") {
         mainCondition = false
         console.log(chalk.blueBright.bold("----------------Welcome to the ATM Machine by Abdul Samad----------------"))
@@ -148,38 +138,29 @@ while (mainCondition) {
 
         }])
         if (pinAnswer.pinQuestion === pin) {
-
             console.log(chalk.green.bold("Correct pin code"));
             let message4 = chalk.gray.bold("Select any one option to proceed")
             let selecting = await inquirer.prompt([{
-
                 name: "selectAnswer",
                 type: "list",
                 message: message4,
                 choices: ["width draw", "check balace", "fast cash"]
-
             }])
 
             if (selecting.selectAnswer === "width draw") {
                 let message5 = chalk.yellow.bold("Enter your amount")
                 let enterAmount = await inquirer.prompt([{
-
                     name: "amount",
                     type: "number",
                     message: message5
-
                 }])
 
                 let remainingBalacne = myBalance - enterAmount.amount;
 
                 if (enterAmount.amount > myBalance) {
-
                     console.log(chalk.red.bold("You Do not have that much money in you atm, please check your balance and try again!"))
-
                 }
-
                 else {
-
                     console.log(chalk.green.bold(`The remaining amount is ${remainingBalacne}`))
                 }
             }
@@ -199,11 +180,8 @@ while (mainCondition) {
             }
         }
         else {
-
             console.log(chalk.redBright.bold("Incorrect Pin Code"))
-
         }
-
     }
     if (select == "4)   Todo-list") {
         console.log(chalk.blueBright.bold("----------------Welcome to the Todo-list by Abdul Samad----------------"))
@@ -267,7 +245,6 @@ while (mainCondition) {
         else {
             mainCondition = false
         }
-
     }
     else if (select == "5)   Currency-Converter") {
         console.log(chalk.blueBright.bold("----------------Welcome to the Currency Converter by Abdul Samad----------------"))
@@ -288,13 +265,9 @@ while (mainCondition) {
             message: mes,
             choices: ["Ruppees", "Riyals", "Pounds", "Dollars"],
         }])
-
-
         //making easier for us to write code
         let from = currencyFrom.cFrom
         let to = currencyTo.cTo
-
-
         //i made it with if else that if anyone select the same currency to convert into it will show this message
         if (from == "Ruppees" && to == "Ruppees") {
             console.log(chalk.redBright.bold("You can not convert Ruppees into Ruppees, try other currency for the convertion!!!!!!!"))
@@ -308,7 +281,6 @@ while (mainCondition) {
         else if (from == "Dollars" && to == "Dollars") {
             console.log(chalk.redBright.bold("You can not convert Dollars into Dollars, try other currency for the convertion!!!!!!!"))
         }
-
         else {
             //taking input for the amount to be converted
             let message9 = chalk.yellow.bold("Enter Your Amount")
@@ -317,11 +289,8 @@ while (mainCondition) {
                 type: "number",
                 message: message9,
             }])
-
             //making it easier for us to code
             let amount = currencyAmount.cAmount
-
-
             //from ruppess to every currency
             if (from == "Ruppees" && to == "Riyals") {
                 let amountAnswer = amount / 74.14;
@@ -335,9 +304,6 @@ while (mainCondition) {
                 let amountAnswer = amount / 278.01;
                 console.log(chalk.green.bold(`Your Amount From "Pakistani Ruppee" to "Dollar" is : ${amountAnswer}`))
             }
-
-
-
             //from riyals to every currency
             if (from == "Riyals" && to == "Ruppees") {
                 let amountAnswer = amount / 0.013;
@@ -351,8 +317,6 @@ while (mainCondition) {
                 let amountAnswer = amount / 3.75;
                 console.log(chalk.green.bold(`Your Amount From "Riyal" to "Dollar" is : ${amountAnswer}`))
             }
-
-
             //from pounds to every currency
             if (from == "Pounds" && to == "Ruppees") {
                 let amountAnswer = amount / 0.0029;
@@ -366,8 +330,6 @@ while (mainCondition) {
                 let amountAnswer = amount / 0.80;
                 console.log(chalk.green.bold(`Your Amount From "Pounds" to "Dollar" is : ${amountAnswer}`))
             }
-
-
             //from dollars to every currency
             if (from == "Dollars" && to == "Ruppees") {
                 let amountAnswer = amount / 0.0036;
@@ -381,7 +343,6 @@ while (mainCondition) {
                 let amountAnswer = amount / 1.24;
                 console.log(chalk.green.bold(`Your Amount From "Dollar" to "Pound" is : ${amountAnswer}`))
             }
-
         }
         var ask = await inquirer.prompt([{
             name: "asking",
@@ -408,18 +369,12 @@ while (mainCondition) {
             message: message10
         }])
         console.log("")
-
         //making easier for us to code
         let wordCounter = wordCount.count
-
         //using split to remove the space in the sentace and return the other values seperatly in an array
         let words = wordCounter.split(" ")
-
-
         //now we have an array we can use .length to get the number of the words
         let number = words.length
-
-
         // now consoling
         console.log(chalk.green(`Your words are seperated as : ${words} `))
         console.log("")
@@ -438,7 +393,6 @@ while (mainCondition) {
         else {
             mainCondition = false
         }
-
     }
     else if (select == "7)   Rock-Paper-Scissor") {
         console.log(chalk.blueBright.bold("----------------Welcome to the Rock-Paper-Scissor-Game by Abdul Samad----------------"))
@@ -510,10 +464,8 @@ while (mainCondition) {
             message: "Do You want to start the quiz?",
             choices: ["Yes", "No"]
         }])
-
         //making easier for us
         welcome = welcome.continue
-
         // 1st "if"------ if he select yes the program will continue
         if (welcome == "Yes") {
 
@@ -522,20 +474,16 @@ while (mainCondition) {
             console.log(chalk.red.bold("There will be 5 questions!! and you have guess every question right"))
             console.log(" ")
             //making the question of the prompt to show some colors
-
             let message1 = chalk.yellowBright.bold("Q1)    When typescript was introduced?")
             let message3 = chalk.yellowBright.bold("Q2)    Which of the following is the post-increment operator:-")
             let message4 = chalk.yellowBright.bold("Q3)    Who developed Typescript?")
             let message5 = chalk.yellowBright.bold("Q4)    How many components typescript have?")
             let message6 = chalk.yellowBright.bold("Q5)    Which of the following is the assignment operator?")
             let message2 = chalk.red.bold("Wrong Answer!! Do you want to try again")
-
             //making if the person want to repaeat the program
-
             let condition = true
             while (condition) {
                 //2nd main prompt
-
                 let question1 = await inquirer.prompt([{
                     name: "q1",
                     type: "list",
@@ -930,6 +878,117 @@ while (mainCondition) {
         }
         
         main();
-    }        
-}
+    } 
+    else if(select === "12)  OOP student management system"){
 
+        mainCondition = false
+
+        async function StudentManagement() {
+
+            function rollNumberGenrating() {
+                
+                return Math.floor(Math.random()* 9001)+ 1000
+            }
+        
+            class Student {
+                name: string
+                age: string
+                rollNumber: number
+                selectedCourse: string
+                feesPaid: string
+        
+                constructor(name: string, age: string, rollNumber: number, selectedCourse: string, feesPaid: string) {
+                    this.name = name
+                    this.age = age
+                    this.rollNumber = rollNumber
+                    this.selectedCourse = selectedCourse
+                    this.feesPaid = feesPaid
+                }
+            }
+        
+            let aboutStudent = new Student("smth", "smth", 0, "smth", "smthhhhhhh")
+        
+            let courseFees: { [key: string]: number } = {
+                HTML: 500,
+                CSS: 700,
+                JavaScript: 1200,
+                TypeScript: 1500,
+                React: 1800,
+                NextJs: 1800,
+                Python: 2000
+            }
+        
+            let NameStudent = await inquirer.prompt([{
+                name: "name",
+                message: chalk.yellowBright.bold("Enter your name."),
+                type: "input"
+            }])
+        
+            aboutStudent.name = NameStudent.name
+        
+            if(aboutStudent.name == ""){
+                console.log(chalk.red.bold("> Please enter a name"))
+                process.exit()
+            }
+        
+            let Studentage = await inquirer.prompt([{
+                name: "age",
+                message: chalk.bold.yellowBright("Enter your age."),
+                type: "number"
+            }])
+        
+            aboutStudent.age = Studentage.age
+        
+            if (aboutStudent.age != aboutStudent.age) {
+                console.log(chalk.red.bold("> Please enter a valid number"))
+                process.exit()
+            }
+        
+            let aboutCourse = await inquirer.prompt([{
+                name: "course",
+                message: chalk.bold.yellowBright("Select any one of the following courses."),
+                type: "list",
+                choices: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "NextJs", "Python"]
+            }])
+        
+            aboutStudent.selectedCourse = aboutCourse.course
+        
+            console.log(chalk.greenBright.bold(`> You have selected ${aboutStudent.selectedCourse} and it's fess is ${courseFees[aboutStudent.selectedCourse]}`))
+        
+            let aboutFees = await inquirer.prompt([{
+                name: "fees",
+                message: chalk.red.bold("Enter the course fees."),
+                type: "number"
+            }])
+        
+            let fees = aboutFees.fees
+        
+            if (fees !== courseFees[aboutStudent.selectedCourse]) {
+                console.log(chalk.red.bold("> The fees is Incorrect, enter the exact amount of fees."))
+                process.exit()
+            }
+        
+            console.log(chalk.greenBright(`\n> Congratulations! you have been selected in the course ${aboutStudent.selectedCourse}..\n`))
+        
+            let seeResult = await inquirer.prompt([{
+                name: "result",
+                message: chalk.yellow("Do you want to see status"),
+                type: "list",
+                choices: ["See Status", "Exit"]
+            }])
+        
+            let result = seeResult.result
+            aboutStudent.feesPaid = "Yes"
+        
+            if(result === "See Status"){
+                console.log(chalk.blueBright.bold.underline("\n \t\t Viewing Status\t\t\n"))
+                console.log(chalk.greenBright.bold(`> Student's name : ${aboutStudent.name}`))
+                console.log(chalk.greenBright.bold(`> Student's age : ${aboutStudent.age}`))
+                console.log(chalk.greenBright.bold(`> Student's RollNumber : ${rollNumberGenrating()}`))
+                console.log(chalk.greenBright.bold(`> Student's course : ${aboutStudent.selectedCourse}`))
+                console.log(chalk.greenBright.bold(`> Fees Paid : ${aboutStudent.feesPaid}`))
+            }
+        }     
+        StudentManagement()
+    }       
+}

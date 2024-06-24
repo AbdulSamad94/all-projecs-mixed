@@ -13,13 +13,11 @@ while (mainCondition) {
             name: "select",
             type: "list",
             message: message1,
-            choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)  Adventure Game", "11)  Countdown Timer"]
+            choices: ["1)   CLI-Calculator", "2)   Number Guessing Game", "3)   ATM-Machine", "4)   Todo-list", "5)   Currency-Converter", "6)   Word-Counter", "7)   Rock-Paper-Scissor", "8)   Quiz", "9)   Student-Management-System", "10)  Adventure Game", "11)  Countdown Timer", "12)  OOP student management system"]
         }]);
     let select = selectOption.select;
     if (select == "1)   CLI-Calculator") {
-        console.log("");
-        console.log(chalk.blueBright.bold.underline("--------------------Welcome to the CLI- Calculator by abdul-samad--------------------"));
-        console.log("");
+        console.log(chalk.blueBright.bold.underline("\n--------------------Welcome to the CLI- Calculator by abdul-samad--------------------\n"));
         let firstNum = chalk.yellowBright.bold("Enter your first number");
         let secondNum = chalk.yellowBright.bold("Enter your second number");
         let operator1 = chalk.yellowBright.bold("Select one of the operator");
@@ -42,11 +40,11 @@ while (mainCondition) {
             }]);
         num1 = num1.n1;
         num2 = num2.n2;
+        operator = operator.operation;
         let add = num1 + num2;
         let sub = num1 - num2;
         let multi = num1 * num2;
         let divide = num1 / num2;
-        operator = operator.operation;
         if (operator == "Addition") {
             console.log(chalk.greenBright.bold(`${checkAnswer} ${add}`));
         }
@@ -59,7 +57,6 @@ while (mainCondition) {
         else {
             console.log(chalk.greenBright.bold(`${checkAnswer} ${divide}`));
         }
-        console.log("");
         var ask = await inquirer.prompt([{
                 name: "asking",
                 type: "list",
@@ -76,7 +73,6 @@ while (mainCondition) {
     }
     else if (select == "2)   Number Guessing Game") {
         console.log(chalk.blueBright.bold("----------------Welcome to the Number Guessing Game by Abdul Samad----------------"));
-        console.log("");
         let target = Math.floor(Math.random() * 5 + 1);
         console.log("");
         let message = await inquirer.prompt([{
@@ -794,5 +790,93 @@ while (mainCondition) {
             startCountDown(cQuestion);
         }
         main();
+    }
+    else if (select === "12)  OOP student management system") {
+        mainCondition = false;
+        async function StudentManagement() {
+            function rollNumberGenrating() {
+                return Math.floor(Math.random() * 9001) + 1000;
+            }
+            class Student {
+                name;
+                age;
+                rollNumber;
+                selectedCourse;
+                feesPaid;
+                constructor(name, age, rollNumber, selectedCourse, feesPaid) {
+                    this.name = name;
+                    this.age = age;
+                    this.rollNumber = rollNumber;
+                    this.selectedCourse = selectedCourse;
+                    this.feesPaid = feesPaid;
+                }
+            }
+            let aboutStudent = new Student("smth", "smth", 0, "smth", "smthhhhhhh");
+            let courseFees = {
+                HTML: 500,
+                CSS: 700,
+                JavaScript: 1200,
+                TypeScript: 1500,
+                React: 1800,
+                NextJs: 1800,
+                Python: 2000
+            };
+            let NameStudent = await inquirer.prompt([{
+                    name: "name",
+                    message: chalk.yellowBright.bold("Enter your name."),
+                    type: "input"
+                }]);
+            aboutStudent.name = NameStudent.name;
+            if (aboutStudent.name == "") {
+                console.log(chalk.red.bold("> Please enter a name"));
+                process.exit();
+            }
+            let Studentage = await inquirer.prompt([{
+                    name: "age",
+                    message: chalk.bold.yellowBright("Enter your age."),
+                    type: "number"
+                }]);
+            aboutStudent.age = Studentage.age;
+            if (aboutStudent.age != aboutStudent.age) {
+                console.log(chalk.red.bold("> Please enter a valid number"));
+                process.exit();
+            }
+            let aboutCourse = await inquirer.prompt([{
+                    name: "course",
+                    message: chalk.bold.yellowBright("Select any one of the following courses."),
+                    type: "list",
+                    choices: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "NextJs", "Python"]
+                }]);
+            aboutStudent.selectedCourse = aboutCourse.course;
+            console.log(chalk.greenBright.bold(`> You have selected ${aboutStudent.selectedCourse} and it's fess is ${courseFees[aboutStudent.selectedCourse]}`));
+            let aboutFees = await inquirer.prompt([{
+                    name: "fees",
+                    message: chalk.red.bold("Enter the course fees."),
+                    type: "number"
+                }]);
+            let fees = aboutFees.fees;
+            if (fees !== courseFees[aboutStudent.selectedCourse]) {
+                console.log(chalk.red.bold("> The fees is Incorrect, enter the exact amount of fees."));
+                process.exit();
+            }
+            console.log(chalk.greenBright(`\n> Congratulations! you have been selected in the course ${aboutStudent.selectedCourse}..\n`));
+            let seeResult = await inquirer.prompt([{
+                    name: "result",
+                    message: chalk.yellow("Do you want to see status"),
+                    type: "list",
+                    choices: ["See Status", "Exit"]
+                }]);
+            let result = seeResult.result;
+            aboutStudent.feesPaid = "Yes";
+            if (result === "See Status") {
+                console.log(chalk.blueBright.bold.underline("\n \t\t Viewing Status\t\t\n"));
+                console.log(chalk.greenBright.bold(`> Student's name : ${aboutStudent.name}`));
+                console.log(chalk.greenBright.bold(`> Student's age : ${aboutStudent.age}`));
+                console.log(chalk.greenBright.bold(`> Student's RollNumber : ${rollNumberGenrating()}`));
+                console.log(chalk.greenBright.bold(`> Student's course : ${aboutStudent.selectedCourse}`));
+                console.log(chalk.greenBright.bold(`> Fees Paid : ${aboutStudent.feesPaid}`));
+            }
+        }
+        StudentManagement();
     }
 }
